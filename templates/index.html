@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Lugares Populares</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 Buscador de Restaurantes</h1>
+        <form method="post">
+            <label for="city">Ciudad:</label>
+            <input type="text" id="city" name="city" required placeholder="Barcelona">
+
+            <label for="keyword">Palabra clave:</label>
+            <input type="text" id="keyword" name="keyword" required placeholder="sushi, italiano...">
+
+            <label for="type">Tipo de lugar:</label>
+            <select id="type" name="type">
+                <option value="restaurant">Restaurante</option>
+                <option value="cafe">Cafetería</option>
+                <option value="bar">Bar</option>
+                <option value="meal_takeaway">Comida para llevar</option>
+            </select>
+
+            <button type="submit">Buscar</button>
+        </form>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if easter_egg %}
+        <p class="easter-egg">{{ easter_egg }}</p>
+        {% endif %}
+
+        {% if results %}
+        <h2>Top Resultados</h2>
+        <ul class="results">
+            {% for r in results %}
+            <li>
+                <strong>{{ r.name }}</strong><br>
+                ⭐ {{ r.rating }} ({{ r.reviews }} opiniones)<br>
+                📍 {{ r.address }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+
+</html>
