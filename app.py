@@ -81,7 +81,8 @@ def index():
                 if pid not in seen:
                     rating = p.get("rating", 0)
                     reviews = p.get("user_ratings_total", 0)
-                    weight = 0.7 * reviews + 0.3 * rating
+                    # Change the weight calculation to give more importance to reviews or ratings
+                    weight = 0.5 * reviews + 0.5 * rating 
                     seen[pid] = {
                         "name": p.get("name"),
                         "rating": rating,
