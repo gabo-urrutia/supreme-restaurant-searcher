@@ -81,8 +81,12 @@ def index():
                 if pid not in seen:
                     rating = p.get("rating", 0)
                     reviews = p.get("user_ratings_total", 0)
+                    max_rating = max([p.get("rating", 0) for p in places] + [5])  # Include 5 as a fallback
+                    max_reviews = max([p.get("user_ratings_total", 0) for p in places] + [1000])  # Include 1000 as a fallback
+                    normalized_rating = rating / max_rating
+                    normalized_reviews = reviews / max_reviews
                     # Change the weight calculation to give more importance to reviews or ratings
-                    weight = 0.5 * reviews + 0.5 * rating 
+                    weight = 0.5 * normalized_reviews + 0.5 * normalized_rating
                     seen[pid] = {
                         "name": p.get("name"),
                         "rating": rating,
